@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public GameObject Girl;
     public float force_magn = 1.0f;
     public float maxSpeed = 20f;//Replace with your max speed
+    public int connectedSpringForce = 10;
 
     private HingeJoint joint;
     private Vector3 startPos;
@@ -67,8 +68,8 @@ public class Player : MonoBehaviour
         }
 
 
-        Debug.Log("Object: " + hasCollided);
-        Debug.Log("Goal: " + inGoal);
+        //Debug.Log("Object: " + hasCollided);
+        //Debug.Log("Goal: " + inGoal);
         Debug.Log("Player: " + foundPartner);
     }
 
@@ -89,8 +90,18 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            foundPartner = true;
             // Add spring between players
+            if (!foundPartner)
+            {
+                SpringJoint springJoint = gameObject.AddComponent<SpringJoint>();
+                springJoint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
+                springJoint.spring = connectedSpringForce;
+            }
+
+
+
+
+            foundPartner = true;
         }
     }
 
@@ -108,7 +119,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            foundPartner = false;
+            //foundPartner = false;
         }
     }
 }
