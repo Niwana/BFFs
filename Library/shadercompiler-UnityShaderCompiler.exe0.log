@@ -1,5 +1,2 @@
 Base path: 'C:/Program Files/Unity/Hub/Editor/2019.2.6f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2019.2.6f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
-Cmd: preprocess
-  error: 2 plat 4 at (42): undeclared identifier 'unity_ObjectToworld'
-  insize=2320 outsize=3054 ok=0
