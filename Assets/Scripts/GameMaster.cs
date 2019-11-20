@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
     public GameObject mousePointer;
+    public float levelCountdown;
+    public Canvas canvas;
+    public Text countdownText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int currentLevel = 0;
+    private bool isCounting;
 
-    // Update is called once per frame
+
     void Update()
     {
 
@@ -24,5 +26,34 @@ public class GameMaster : MonoBehaviour
 
             mousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
         }
+
+        if (isCounting && levelCountdown > 0)
+        {
+            levelCountdown -= 1 * Time.deltaTime;
+            canvas.gameObject.SetActive(true);
+            countdownText.text = (levelCountdown + 1).ToString("F0");
+
+            if (levelCountdown <= 0)
+            {
+                isCounting = false;
+                StartNewLevel();
+            }
+        }
+    }
+
+    public void StartLevelCountdown()
+    {
+        isCounting = true;
+    }
+
+    public void StartNewLevel()
+    {
+        if (currentLevel <= SceneManager.sceneCountInBuildSettings)
+        {
+            currentLevel++;
+            SceneManager.LoadScene(currentLevel);
+        }
+        else
+            Debug.Log("No more levels to load");
     }
 }
