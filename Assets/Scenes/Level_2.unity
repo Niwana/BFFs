@@ -759,6 +759,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1935786336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 289479451271912729, guid: f3193ef8c5a54453a8556da2dad05c92,
+    type: 3}
+  m_PrefabInstance: {fileID: 289479450494250052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1935786344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935786336}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92ad6c1e5d724899a2ce027f8c993ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 0}
+  vert: []
+  part: {fileID: 6978694958024970224, guid: 3905bfc57fd780f46978e16119cb9e8a, type: 3}
+  treshold: 1
+  force_magn: 1
+  particles: []
 --- !u!1 &1953732363
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,17 +905,17 @@ PrefabInstance:
     - target: {fileID: 289479451271912743, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 289479451271912743, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 289479451271912743, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 289479451271912743, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
@@ -901,7 +925,7 @@ PrefabInstance:
     - target: {fileID: 289479451271912743, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 289479451271912743, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
@@ -925,9 +949,45 @@ PrefabInstance:
       objectReference: {fileID: 246372053}
     - target: {fileID: 289479451271912736, guid: f3193ef8c5a54453a8556da2dad05c92,
         type: 3}
+<<<<<<< Updated upstream:Assets/Scenes/Level_2.unity
       propertyPath: player
       value: 
       objectReference: {fileID: 274404532}
+=======
+      propertyPath: m_ConnectedAnchor.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289479451271912730, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: m_Anchor.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289479451271912730, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: m_Anchor.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 289479451271912730, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: m_Anchor.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289479451271912730, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: m_AutoConfigureConnectedAnchor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289479451271912731, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 289479451271912736, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+>>>>>>> Stashed changes:Assets/Scenes/SampleScene.unity
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3193ef8c5a54453a8556da2dad05c92, type: 3}
 --- !u!1001 &8692774643714961490
@@ -980,7 +1040,7 @@ PrefabInstance:
     - target: {fileID: 6621170922099539067, guid: e3b37cd05d813a048ab3a19bc22d975d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6621170922099539067, guid: e3b37cd05d813a048ab3a19bc22d975d,
         type: 3}
