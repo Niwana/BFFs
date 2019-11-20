@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
 
                 if (Girl.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed)
                 {
-                    Girl.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
+                    Girl.GetComponent<Rigidbody>().AddForce(-Girl.transform.right*force_magn);
                     //Debug.Log("Speed" + Girl.GetComponent<Rigidbody>().velocity.magnitude);
                 }
             }
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 
                 if (Girl.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed)
                 {
-                    Girl.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0); //gånger cos(vinkel)
+                    Girl.GetComponent<Rigidbody>().AddForce(Girl.transform.right*force_magn); //gånger cos(vinkel)
                     //Debug.Log("Speed" + Girl.GetComponent<Rigidbody>().velocity.magnitude);
                 }
             }
