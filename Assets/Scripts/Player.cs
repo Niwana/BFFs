@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             // Cut joint
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Destroy(joint);
+                //Destroy(joint);
             }
 
             //OLD SWING

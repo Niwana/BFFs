@@ -26,7 +26,6 @@ public class NewPlayer : MonoBehaviour
     {
         player = this.gameObject;
         gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-        joint = GetComponent<HingeJoint>();
         startPos = gameObject.transform.position;
         meshParticles = GetComponent<Jellyfy>().particles;
     }
@@ -34,22 +33,6 @@ public class NewPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (joint != null)
-        {
-            Debug.DrawLine(transform.position, joint.anchor + startPos); // Olny for debugging
-        }
-
-
-        // Cut the join if the mouse is dragged over it
-        /*
-        if (joint != null && Physics.Linecast(transform.position, joint.anchor + startPos))
-        {
-            Destroy(joint);
-            GetComponent<SphereCollider>().enabled = true;
-        }
-        */
-
-
         if (!hasCollided && !inGoal)
         {
             // Swing Players
@@ -57,44 +40,35 @@ public class NewPlayer : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    Debug.Log(meshParticles.Length);
                     foreach (var particle in meshParticles)
                         particle.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
                 }
 
                 if (Input.GetKey(KeyCode.D))
                 {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
+                    foreach (var particle in meshParticles)
+                        particle.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
                 }
             }
             if (gameObject.name == "Girl")
             {
                 if (Input.GetKey(KeyCode.J))
                 {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
+                    foreach (var particle in meshParticles)
+                        particle.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
                 }
 
                 if (Input.GetKey(KeyCode.L))
                 {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
+                    foreach (var particle in meshParticles)
+                        particle.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
                 }
             }
 
             // Cut joint
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                joint = GameObject.Find("MID PARTICLE").GetComponent<HingeJoint>();
                 Destroy(joint);
             }
         }
@@ -113,7 +87,12 @@ public class NewPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        //Debug.Log("Collision " + other.gameObject.tag);
+        Debug.Log("Collision " + other.gameObject.tag);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger " + other.gameObject.tag);
 
         if (other.gameObject.tag == "Object")
         {
@@ -137,10 +116,7 @@ public class NewPlayer : MonoBehaviour
 
             foundPartner = true;
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
         // Restart level
         if (other.gameObject.tag == "Respawn")
         {

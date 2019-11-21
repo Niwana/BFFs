@@ -62,10 +62,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Clouds.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\Jellyfy.cs" />
     <Compile Include="Assets\Scripts\NewPlayer.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <None Include="Assets\SimpleSky\ReadMe.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Workspace/Programmering/Projects/Unity/BFFs/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
