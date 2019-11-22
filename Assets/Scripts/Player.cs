@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private bool hasCollided;
     private bool foundPartner;
     private bool inGoal;
+    private bool onSpeedBoost;
 
     private GameMaster gameMaster;
 
@@ -64,6 +65,14 @@ public class Player : MonoBehaviour
             {
                 Destroy(joint);
             }
+
+            // If player is on a speed boost
+            if (onSpeedBoost)
+            {
+                player.GetComponent<Rigidbody>().AddForce(new Vector3(50, 0, 0));
+            }
+
+            
         }
 
 
@@ -103,11 +112,11 @@ public class Player : MonoBehaviour
 
             foundPartner = true;
         }
-
+        
         if (other.gameObject.tag == "SpeedBoost")
         {
             hasCollided = true;
-
+            onSpeedBoost = true;
         }
     }
 
@@ -135,6 +144,12 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //foundPartner = false;
+        }
+
+        if (other.gameObject.tag == "SpeedBoost")
+        {
+            hasCollided = false;
+            onSpeedBoost = false;
         }
     }
 }

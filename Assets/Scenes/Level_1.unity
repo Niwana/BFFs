@@ -1168,10 +1168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008b59ed9c9305c48ae6b44602c3490f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mousePointer: {fileID: 1953732363}
-  levelCountdown: 3
-  canvas: {fileID: 1946882327}
-  countdownText: {fileID: 936233816}
+  mousePointer: {fileID: 0}
+  levelCountdown: 0
+  canvas: {fileID: 0}
+  countdownText: {fileID: 0}
 --- !u!4 &1279096792
 Transform:
   m_ObjectHideFlags: 0
