@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public float maxSpeed = 20f;//Replace with your max speed
     public int connectedSpringForce = 10;
     public int dashPower = 400;
+    public ParticleSystem hearts;
+    public ParticleSystem dashPS;
 
     private GameObject player;
     private ConfigurableJoint joint;
@@ -77,22 +79,30 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(-dashPower, 0, 0));
-                canDash = false;
+                //canDash = false;
+                ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
+                dash.gameObject.transform.Rotate(0, 90, 0);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(dashPower, 0, 0));
-                canDash = false;
+                //canDash = false;
+                ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
+                dash.gameObject.transform.Rotate(0, -90, 0);
             }
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(0, dashPower, 0));
-                canDash = false;
+                //canDash = false;
+                ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
+                dash.gameObject.transform.Rotate(90, 0, 0);
             }
             if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(0, -dashPower, 0));
-                canDash = false;
+                //canDash = false;
+                ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
+                dash.gameObject.transform.Rotate(-90, 0, 0);
             }
         }
 
@@ -124,6 +134,8 @@ public class Player : MonoBehaviour
                 SpringJoint springJoint = gameObject.AddComponent<SpringJoint>();
                 springJoint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
                 springJoint.spring = connectedSpringForce;
+
+                Instantiate(hearts, GameObject.Find("Boy").transform.position, Quaternion.identity);
             }
 
             foundPartner = true;

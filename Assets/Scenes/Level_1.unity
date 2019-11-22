@@ -1400,6 +1400,12 @@ PrefabInstance:
       propertyPath: m_ConnectedBody
       value: 
       objectReference: {fileID: 1406966344}
+    - target: {fileID: 289479451271912736, guid: f3193ef8c5a54453a8556da2dad05c92,
+        type: 3}
+      propertyPath: hearts
+      value: 
+      objectReference: {fileID: 6617702155797539342, guid: 92922c8cb06ff4aa2bd86ee04e9a437e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3193ef8c5a54453a8556da2dad05c92, type: 3}
 --- !u!1001 &1559507724378604804
@@ -1676,5 +1682,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8979475291685204801, guid: e3b37cd05d813a048ab3a19bc22d975d,
+        type: 3}
+      propertyPath: hearts
+      value: 
+      objectReference: {fileID: 6617702155797539342, guid: 92922c8cb06ff4aa2bd86ee04e9a437e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3b37cd05d813a048ab3a19bc22d975d, type: 3}
