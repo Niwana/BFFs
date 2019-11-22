@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int connectedSpringForce = 10;
 
     private GameObject player;
-    private HingeJoint joint;
+    private ConfigurableJoint joint;
     private Vector3 startPos;
     private bool hasCollided;
     private bool foundPartner;
@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         player = this.gameObject;
-        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-        joint = GetComponent<HingeJoint>();
+       // gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        joint = GetComponent<ConfigurableJoint>();
         startPos = gameObject.transform.position;
     }
 
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             // Cut joint
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //Destroy(joint);
+                Destroy(joint);
             }
 
             //OLD SWING
