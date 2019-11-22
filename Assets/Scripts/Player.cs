@@ -65,13 +65,15 @@ public class Player : MonoBehaviour
             {
                 Destroy(joint);
             }
-
-            // If player is on a speed boost
-            if (onSpeedBoost)
-            {
-                player.GetComponent<Rigidbody>().AddForce(new Vector3(20, 0, 0));
-            }
         }
+
+
+        // If player is on a speed boost
+        if (onSpeedBoost)
+        {
+            player.GetComponent<Rigidbody>().AddForce(new Vector3(20, 0, 0));
+        }
+
 
         // Dash
         if (canDash && joint == null)
@@ -79,28 +81,28 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(-dashPower, 0, 0));
-                //canDash = false;
+                canDash = false;
                 ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
                 dash.gameObject.transform.Rotate(0, 90, 0);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(dashPower, 0, 0));
-                //canDash = false;
+                canDash = false;
                 ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
                 dash.gameObject.transform.Rotate(0, -90, 0);
             }
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(0, dashPower, 0));
-                //canDash = false;
+                canDash = false;
                 ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
                 dash.gameObject.transform.Rotate(90, 0, 0);
             }
             if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 player.GetComponent<Rigidbody>().AddForce(new Vector3(0, -dashPower, 0));
-                //canDash = false;
+                canDash = false;
                 ParticleSystem dash = Instantiate(dashPS, transform.position, dashPS.gameObject.transform.rotation);
                 dash.gameObject.transform.Rotate(-90, 0, 0);
             }
@@ -135,7 +137,7 @@ public class Player : MonoBehaviour
                 springJoint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
                 springJoint.spring = connectedSpringForce;
 
-                Instantiate(hearts, GameObject.Find("Boy").transform.position, Quaternion.identity);
+                Instantiate(hearts, GameObject.Find("Boy").transform.position, hearts.transform.rotation);
             }
 
             foundPartner = true;
@@ -143,6 +145,7 @@ public class Player : MonoBehaviour
         
         if (other.gameObject.tag == "SpeedBoost")
         {
+            Debug.Log("Speed");
             hasCollided = true;
             onSpeedBoost = true;
         }

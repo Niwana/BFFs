@@ -128,8 +128,8 @@ MonoBehaviour:
   maxSpeed: 20
   connectedSpringForce: 10
   dashPower: 400
-  hearts: {fileID: 0}
-  dashPS: {fileID: 0}
+  hearts: {fileID: 6617702155797539342, guid: 92922c8cb06ff4aa2bd86ee04e9a437e, type: 3}
+  dashPS: {fileID: 6617702155797539342, guid: 61a8240f69a8f394b80d00a159c6e056, type: 3}
 --- !u!153 &112277033445650089
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.78, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -3.81, y: 3.56, z: 0}
+  m_ConnectedAnchor: {x: 0.05460889, y: 0.4845892, z: 0.010889736}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: 0}
   m_XMotion: 1
