@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float force_magn = 1.0f;
     public float maxSpeed = 20f;//Replace with your max speed
     public int connectedSpringForce = 10;
+    public int dashPower = 400;
 
     private GameObject player;
     private ConfigurableJoint joint;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     private bool foundPartner;
     private bool inGoal;
     private bool onSpeedBoost;
-    private bool canDash;
+    private bool canDash = true;
 
     private GameMaster gameMaster;
 
@@ -45,13 +46,13 @@ public class Player : MonoBehaviour
         if (!hasCollided && !inGoal)
         {
             // Swing Players
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
                     player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
                     player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
@@ -70,6 +71,31 @@ public class Player : MonoBehaviour
             }
         }
 
+        // Dash
+        if (canDash && joint == null)
+        {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                player.GetComponent<Rigidbody>().AddForce(new Vector3(-dashPower, 0, 0));
+                canDash = false;
+            }
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                player.GetComponent<Rigidbody>().AddForce(new Vector3(dashPower, 0, 0));
+                canDash = false;
+            }
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                player.GetComponent<Rigidbody>().AddForce(new Vector3(0, dashPower, 0));
+                canDash = false;
+            }
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                player.GetComponent<Rigidbody>().AddForce(new Vector3(0, -dashPower, 0));
+                canDash = false;
+            }
+        }
+
 
         // Check win state
         if (inGoal && foundPartner)
@@ -80,8 +106,6 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Collision " + other.gameObject.tag);
-
         if (other.gameObject.tag == "Object")
         {
             hasCollided = true;
