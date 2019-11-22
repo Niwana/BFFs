@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private bool foundPartner;
     private bool inGoal;
     private bool onSpeedBoost;
+    private bool canDash;
 
     private GameMaster gameMaster;
 
@@ -48,16 +49,12 @@ public class Player : MonoBehaviour
             {
                 if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
                     player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
-                else
-                    player.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
             }
 
             if (Input.GetKey(KeyCode.D))
             {
                 if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
                     player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
-                else
-                    player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
             }
 
             // Cut joint
@@ -69,20 +66,15 @@ public class Player : MonoBehaviour
             // If player is on a speed boost
             if (onSpeedBoost)
             {
-                player.GetComponent<Rigidbody>().AddForce(new Vector3(50, 0, 0));
+                player.GetComponent<Rigidbody>().AddForce(new Vector3(20, 0, 0));
             }
-
-            
         }
 
 
         // Check win state
         if (inGoal && foundPartner)
         {
-            if (gameObject.name == "Girl") // Makes sure that the function only gets called once
-            {
-                gameMaster.StartLevelCountdown();
-            }
+            gameMaster.StartLevelCountdown();
         }
     }
 
