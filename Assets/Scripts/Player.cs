@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         player = this.gameObject;
-       // gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         joint = GetComponent<ConfigurableJoint>();
         startPos = gameObject.transform.position;
     }
@@ -31,63 +31,32 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (joint != null)
-        {
-            Debug.DrawLine(transform.position, joint.anchor + startPos); // Olny for debugging
-        }
-
         // Cut the join if the mouse is dragged over it
-        /*
+        
         if (joint != null && Physics.Linecast(transform.position, joint.anchor + startPos))
         {
             Destroy(joint);
             GetComponent<SphereCollider>().enabled = true;
         }
-        */
 
 
         if (!hasCollided && !inGoal)
         {
             // Swing Players
-            if (gameObject.name == "Boy")
+            if (Input.GetKey(KeyCode.A))
             {
-                if (Input.GetKey(KeyCode.A))
-                {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
-                }
-
-                if (Input.GetKey(KeyCode.D))
-                {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
-                }
+                if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
+                    player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
+                else
+                    player.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
             }
-            if (gameObject.name == "Girl")
+
+            if (Input.GetKey(KeyCode.D))
             {
-                if (Input.GetKey(KeyCode.J))
-                {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(-force_magn, 0, 0);
-                }
-
-                if (Input.GetKey(KeyCode.L))
-                {
-
-                    if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                        player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
-                    else
-                        player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
-                }
+                if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
+                    player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
+                else
+                    player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
             }
 
             // Cut joint
@@ -95,27 +64,6 @@ public class Player : MonoBehaviour
             {
                 Destroy(joint);
             }
-
-            //OLD SWING
-            /*
-            if (Input.GetKey("left"))
-            {
-
-                if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                    player.GetComponent<Rigidbody>().AddForce(-player.transform.right*force_magn);
-                else
-                    player.GetComponent<Rigidbody>().AddForce(-force_magn, 0 , 0);
-            }
-
-            if (Input.GetKey("right"))
-            {
-
-                if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
-                    player.GetComponent<Rigidbody>().AddForce(player.transform.right*force_magn);
-                else
-                    player.GetComponent<Rigidbody>().AddForce(force_magn, 0, 0);
-            }
-            */
         }
 
 
@@ -129,10 +77,9 @@ public class Player : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter(Collision other)
     {
-        //Debug.Log("Collision " + other.gameObject.tag);
+        Debug.Log("Collision " + other.gameObject.tag);
 
         if (other.gameObject.tag == "Object")
         {
@@ -155,6 +102,12 @@ public class Player : MonoBehaviour
             }
 
             foundPartner = true;
+        }
+
+        if (other.gameObject.tag == "SpeedBoost")
+        {
+            hasCollided = true;
+
         }
     }
 
