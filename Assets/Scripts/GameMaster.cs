@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,9 +9,13 @@ public class GameMaster : MonoBehaviour
     public Canvas canvas;
     public Text countdownText;
 
-    private int currentLevel = 0;
+    private int currentLevel;
     private bool isCounting;
 
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 
     void Update()
     {
@@ -25,6 +27,12 @@ public class GameMaster : MonoBehaviour
             screenPoint.z = 10.0f; //distance of the plane from the camera
 
             mousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+        }
+
+        // Make it possible to restart the game
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
         }
 
         if (isCounting && levelCountdown > 0)
@@ -48,12 +56,17 @@ public class GameMaster : MonoBehaviour
 
     public void StartNewLevel()
     {
-        if (currentLevel <= SceneManager.sceneCountInBuildSettings)
+        if (PlayerPrefs.GetInt("currentLevel") < SceneManager.sceneCountInBuildSettings - 1)
         {
+            currentLevel = PlayerPrefs.GetInt("currentLevel");
             currentLevel++;
+            PlayerPrefs.SetInt("currentLevel", currentLevel);
             SceneManager.LoadScene(currentLevel);
         }
         else
+        {
             Debug.Log("No more levels to load");
+            SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
+        }
     }
 }

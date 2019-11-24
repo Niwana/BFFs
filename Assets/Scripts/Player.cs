@@ -38,11 +38,13 @@ public class Player : MonoBehaviour
     {
         // Cut the join if the mouse is dragged over it
         
-        if (joint != null && Physics.Linecast(transform.position, joint.anchor + startPos))
+        if (joint != null && Physics.Linecast(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position))
         {
+            Debug.Log("Blocked");
             Destroy(joint);
             GetComponent<SphereCollider>().enabled = true;
         }
+        Debug.DrawLine(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position);
 
 
         if (!hasCollided && !inGoal)
@@ -67,11 +69,11 @@ public class Player : MonoBehaviour
             }
         }
 
-
         // If player is on a speed boost
         if (onSpeedBoost)
         {
-            player.GetComponent<Rigidbody>().AddForce(new Vector3(20, 0, 0));
+            player.GetComponent<Rigidbody>().AddForce((GetComponent<Rigidbody>().velocity.normalized * 20));
+
         }
 
 
@@ -142,22 +144,6 @@ public class Player : MonoBehaviour
 
             foundPartner = true;
         }
-        
-        if (other.gameObject.tag == "SpeedBoost")
-        {
-            Debug.Log("Speed");
-            hasCollided = true;
-            onSpeedBoost = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Restart level
-        if (other.gameObject.tag == "Respawn")
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     private void OnCollisionExit(Collision other)
@@ -176,11 +162,33 @@ public class Player : MonoBehaviour
         {
             //foundPartner = false;
         }
+    }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Restart level
+        if (other.gameObject.tag == "Respawn")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         if (other.gameObject.tag == "SpeedBoost")
         {
-            hasCollided = false;
+            hasCollided = true;
+            onSpeedBoost = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "SpeedBoost")
+        {
             onSpeedBoost = false;
+            Debug.Log("Exit");
         }
     }
 }
