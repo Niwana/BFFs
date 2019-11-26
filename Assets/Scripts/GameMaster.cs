@@ -62,6 +62,7 @@ public class GameMaster : MonoBehaviour
             currentLevel++;
             PlayerPrefs.SetInt("currentLevel", currentLevel);
             SceneManager.LoadScene(currentLevel);
+            Debug.Log("Current: " + currentLevel);
         }
         else
         {

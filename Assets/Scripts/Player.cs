@@ -72,8 +72,7 @@ public class Player : MonoBehaviour
         // If player is on a speed boost
         if (onSpeedBoost)
         {
-            player.GetComponent<Rigidbody>().AddForce((GetComponent<Rigidbody>().velocity.normalized * 20));
-
+            player.GetComponent<Rigidbody>().AddForce((GetComponent<Rigidbody>().velocity.normalized * 25));
         }
 
 
@@ -188,7 +187,6 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "SpeedBoost")
         {
             onSpeedBoost = false;
-            Debug.Log("Exit");
         }
     }
 }
