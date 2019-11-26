@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Cut the join if the mouse is dragged over it
         
