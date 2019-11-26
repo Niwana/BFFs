@@ -8,6 +8,8 @@ public class GameMaster : MonoBehaviour
     public float levelCountdown;
     public Canvas canvas;
     public Text countdownText;
+    public Image tutorialImage;
+    public bool shownTutorial;
 
     private int currentLevel;
     private bool isCounting;
@@ -15,12 +17,26 @@ public class GameMaster : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("shownTutorial", 0);
+    }
+
+    private void Start()
+    {
+
+
+        if (PlayerPrefs.GetInt("shownTutorial") == 0)
+        {
+            tutorialImage.gameObject.SetActive(true);
+        }
+
+        countdownText.gameObject.SetActive(false);
     }
 
     void Update()
     {
 
         // Make the mouse marker follow the position of the mouse
+        /*
         if (Input.GetKey(KeyCode.Mouse0))
         {
             Vector3 screenPoint = Input.mousePosition;
@@ -28,6 +44,7 @@ public class GameMaster : MonoBehaviour
 
             mousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
         }
+        */
 
         // Make it possible to restart the game
         if (Input.GetKeyDown(KeyCode.R))
@@ -35,6 +52,7 @@ public class GameMaster : MonoBehaviour
             SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
         }
 
+        // Loads the next level
         if (isCounting && levelCountdown > 0)
         {
             levelCountdown -= 1 * Time.deltaTime;
@@ -47,10 +65,18 @@ public class GameMaster : MonoBehaviour
                 StartNewLevel();
             }
         }
+
+        if (Input.anyKeyDown && !shownTutorial)
+        {
+            tutorialImage.gameObject.SetActive(false);
+            //shownTutorial = true;
+            PlayerPrefs.SetInt("shownTutorial", 1);
+        }
     }
 
     public void StartLevelCountdown()
     {
+        countdownText.gameObject.SetActive(true);
         isCounting = true;
     }
 

@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             }
 
             // Cut joint
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && PlayerPrefs.GetInt("shownTutorial") == 1)
             {
                 Destroy(joint);
             }
