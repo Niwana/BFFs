@@ -38,13 +38,13 @@ public class Player : MonoBehaviour
     {
         // Cut the join if the mouse is dragged over it
         
-        if (joint != null && Physics.Linecast(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position))
+        /*if (joint != null && Physics.Linecast(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position))
         {
             Debug.Log("Blocked");
             Destroy(joint);
             GetComponent<SphereCollider>().enabled = true;
         }
-        Debug.DrawLine(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position);
+        Debug.DrawLine(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position);*/
 
 
         if (!hasCollided && !inGoal)
