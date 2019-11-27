@@ -126,10 +126,6 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Object")
             hasCollided = false;
-
-
-        if (other.gameObject.tag == "Goal")
-            inGoal = false;
     }
 
 
@@ -138,6 +134,9 @@ public class Player : MonoBehaviour
         // Restart level
         if (other.gameObject.tag == "Respawn")
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (other.gameObject.tag == "Goal")
+            inGoal = false;
     }
 
     private void OnTriggerStay(Collider other)
