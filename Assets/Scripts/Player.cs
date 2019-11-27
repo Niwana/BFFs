@@ -103,9 +103,6 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Object")
             hasCollided = true;
 
-        if (other.gameObject.tag == "Goal")
-            inGoal = true;
-
         if (other.gameObject.tag == "Player")
         {
             // Add spring between players
@@ -131,12 +128,14 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
+
         // Restart level
         if (other.gameObject.tag == "Respawn")
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         if (other.gameObject.tag == "Goal")
-            inGoal = false;
+            inGoal = true;
     }
 
     private void OnTriggerStay(Collider other)
@@ -152,5 +151,8 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "SpeedBoost")
             onSpeedBoost = false;
+
+        if (other.gameObject.tag == "Goal")
+            inGoal = false;
     }
 }
