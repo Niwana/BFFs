@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float force_magn = 1.0f;
-    public float maxSpeed = 20f;//Replace with your max speed
     public int connectedSpringForce = 10;
     public int dashPower = 400;
     public ParticleSystem hearts;
@@ -14,7 +13,6 @@ public class Player : MonoBehaviour
 
     private GameObject player;
     private ConfigurableJoint joint;
-    private Vector3 startPos;
     private bool hasCollided;
     private bool foundPartner;
     private bool inGoal;
@@ -30,50 +28,35 @@ public class Player : MonoBehaviour
         player = this.gameObject;
         gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         joint = GetComponent<ConfigurableJoint>();
-        startPos = gameObject.transform.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Cut the join if the mouse is dragged over it
         
-        /*if (joint != null && Physics.Linecast(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position))
-        {
-            Debug.Log("Blocked");
-            Destroy(joint);
-            GetComponent<SphereCollider>().enabled = true;
-        }
-        Debug.DrawLine(transform.position, GameObject.FindGameObjectWithTag("Chain").transform.GetChild(0).transform.position);*/
-
-
         if (!hasCollided && !inGoal)
         {
             // Swing Players
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
+                if (joint != null)
                     player.GetComponent<Rigidbody>().AddForce(-player.transform.right * force_magn);
             }
 
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                if (player.GetComponent<Rigidbody>().velocity.magnitude < maxSpeed && joint != null)
+                if (joint != null)
                     player.GetComponent<Rigidbody>().AddForce(player.transform.right * force_magn);
             }
 
             // Cut joint
-            if (Input.GetKeyDown(KeyCode.Space) && PlayerPrefs.GetInt("shownTutorial") == 1)
-            {
+            if (Input.GetKeyDown(KeyCode.Space) && gameMaster.shownTutorial)
                 Destroy(joint);
-            }
         }
 
         // If player is on a speed boost
         if (onSpeedBoost)
-        {
             player.GetComponent<Rigidbody>().AddForce((GetComponent<Rigidbody>().velocity.normalized * 25));
-        }
 
 
         // Dash
@@ -112,22 +95,16 @@ public class Player : MonoBehaviour
 
         // Check win state
         if (inGoal && foundPartner)
-        {
             gameMaster.StartLevelCountdown();
-        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Object")
-        {
             hasCollided = true;
-        }
 
         if (other.gameObject.tag == "Goal")
-        {
             inGoal = true;
-        }
 
         if (other.gameObject.tag == "Player")
         {
@@ -137,10 +114,10 @@ public class Player : MonoBehaviour
                 SpringJoint springJoint = gameObject.AddComponent<SpringJoint>();
                 springJoint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
                 springJoint.spring = connectedSpringForce;
+                springJoint.enableCollision = true;
 
                 Instantiate(hearts, GameObject.Find("Boy").transform.position, hearts.transform.rotation);
             }
-
             foundPartner = true;
         }
     }
@@ -148,19 +125,11 @@ public class Player : MonoBehaviour
     private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.tag == "Object")
-        {
             hasCollided = false;
-        }
+
 
         if (other.gameObject.tag == "Goal")
-        {
             inGoal = false;
-        }
-
-        if (other.gameObject.tag == "Player")
-        {
-            //foundPartner = false;
-        }
     }
 
 
@@ -168,9 +137,7 @@ public class Player : MonoBehaviour
     {
         // Restart level
         if (other.gameObject.tag == "Respawn")
-        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -185,8 +152,6 @@ public class Player : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "SpeedBoost")
-        {
             onSpeedBoost = false;
-        }
     }
 }

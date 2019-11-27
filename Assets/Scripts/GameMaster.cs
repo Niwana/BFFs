@@ -11,45 +11,28 @@ public class GameMaster : MonoBehaviour
     public Image tutorialImage;
     public bool shownTutorial;
 
-    private int currentLevel;
     private bool isCounting;
-
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetInt("shownTutorial", 0);
-    }
 
     private void Start()
     {
 
-
-        if (PlayerPrefs.GetInt("shownTutorial") == 0)
+        if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            tutorialImage.gameObject.SetActive(true);
-        }
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                tutorialImage.gameObject.SetActive(true);
+            }
 
-        countdownText.gameObject.SetActive(false);
+            countdownText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-
-        // Make the mouse marker follow the position of the mouse
-        /*
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            Vector3 screenPoint = Input.mousePosition;
-            screenPoint.z = 10.0f; //distance of the plane from the camera
-
-            mousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
-        }
-        */
-
         // Make it possible to restart the game
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         // Loads the next level
@@ -66,11 +49,10 @@ public class GameMaster : MonoBehaviour
             }
         }
 
-        if (Input.anyKeyDown && !shownTutorial)
+        if (Input.anyKeyDown && !shownTutorial && SceneManager.GetActiveScene().buildIndex != 0)
         {
             tutorialImage.gameObject.SetActive(false);
-            //shownTutorial = true;
-            PlayerPrefs.SetInt("shownTutorial", 1);
+            shownTutorial = true;
         }
     }
 
@@ -82,18 +64,9 @@ public class GameMaster : MonoBehaviour
 
     public void StartNewLevel()
     {
-        if (PlayerPrefs.GetInt("currentLevel") < SceneManager.sceneCountInBuildSettings - 1)
-        {
-            currentLevel = PlayerPrefs.GetInt("currentLevel");
-            currentLevel++;
-            PlayerPrefs.SetInt("currentLevel", currentLevel);
-            SceneManager.LoadScene(currentLevel);
-            Debug.Log("Current: " + currentLevel);
-        }
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         else
-        {
-            Debug.Log("No more levels to load");
-            SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
-        }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -105,8 +105,8 @@ Rigidbody:
   m_GameObject: {fileID: 289479451271912729}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.1
-  m_AngularDrag: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0.01
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -124,8 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76e5c8841122de468cd05ab05d5762d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force_magn: 10
-  maxSpeed: 20
+  force_magn: 15
   connectedSpringForce: 10
   dashPower: 400
   hearts: {fileID: 6617702155797539342, guid: 92922c8cb06ff4aa2bd86ee04e9a437e, type: 3}
