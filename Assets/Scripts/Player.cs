@@ -128,9 +128,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
-
-        // Restart level
         if (other.gameObject.tag == "Respawn")
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
